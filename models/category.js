@@ -14,3 +14,5 @@ CategorySchema.virtual("URL").get(function () {
 CategorySchema.virtual("itemCount").get(function () {
   return this.items.length;
 });
+
+module.exports = mongoose.model("Category", CategorySchema);
