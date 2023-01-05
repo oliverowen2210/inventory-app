@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+
+   div(style="flex-grow: 1; display: flex; align-items: center; flex-direction: column")
+      h2.contentHeaderText(style="font-size: ")= title
+      form(action="" method="POST" style="width: fit-content") 
+         div.inputGroup
+            label(for="name") Name 
+            input(type="text" name="name" maxlength=20 value=(category ? category.name : ''))
+         div.inputGroup
+            label(for="description") Description 
+            textarea(name='description' rows=4 maxlength=110) #{category ? category.description : ''}
+         button(style="width: 80px;" type="submit") Submit
