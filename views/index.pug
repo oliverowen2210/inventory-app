@@ -1,6 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p #[strong #{item_count}] items in #[strong #{category_count}] categories
-  
+  div.contentHeaderWrapper
+    div.contentHeader
+      div(style="width: 200px")
+      h2(style="font-weight: 100") #[strong #{item_count}] items in #[strong #{category_count}] categories
+      button(style="width: 200px") + Add new category
+  div(style="display: grid; place-items: center; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr")
+    each category in categories 
+      div.category
+        div.categoryImageWrapper
+          img.categoryImage(src='/images/categorypage.png')
+        div.categoryInfo
+          h3 #{category.name}
+          p #{category.description}
+        div.categoryButtons
+          button(style="width: 120px") Update
+          button(style="width: 120px; background-color: red") Delete
+    else 
+      p No categories to display.
+
