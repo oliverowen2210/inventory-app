@@ -34,3 +34,9 @@ exports.categories = (req, res) => {
     }
   );
 };
+
+exports.category_create_get = (req, res) => {
+  res.render("category_form", { title: "New category" });
+};
+
+exports.category_create_post = (req, res) => {};
