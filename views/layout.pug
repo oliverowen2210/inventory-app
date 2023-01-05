@@ -4,8 +4,9 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(style="display: flex; flex-direction: column; width: 100vw; height: 100vh; margin: 0; padding: 0")
-    header(style="display: flex; flex-shrink: 0; justify-content: center; align-items: center; background-color: #535353; height: 200px; color: white; font-size:36px") 
-      h1 Inventory App
+    header.flexCenter(style="flex-shrink: 0; background-color: #535353; height: 200px; color: white; font-size:36px") 
+      a(href="/inventory" style="color: white; text-decoration: none;")
+        h1 Inventory App
     main(style="display: flex; flex-grow: 1; flex-direction: column")
       block content
 

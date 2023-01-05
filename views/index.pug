@@ -1,11 +1,12 @@
 extends layout
 
 block content
-  div.contentHeaderWrapper
+  div.flexCenter
     div.contentHeader
       div(style="width: 200px")
-      h2(style="font-weight: 100") #[strong #{item_count}] items in #[strong #{category_count}] categories
-      button(style="width: 200px") + Add new category
+      h2.contentHeaderText(style="font-weight: 100") #[strong #{item_count}] items in #[strong #{category_count}] categories
+      a(href="/inventory/category/create")
+        button(style="width: 200px") + Add new category
   div(style="display: grid; place-items: center; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr")
     each category in categories 
       div.category

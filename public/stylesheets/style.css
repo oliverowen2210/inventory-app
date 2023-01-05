@@ -7,12 +7,15 @@ a {
   color: #00b7ff;
 }
 
-.contentHeaderWrapper {
-  padding: 24px;
+.flexCenter {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.contentHeaderText {
   font-size: 28px;
+  padding: 24px;
 }
 
 .contentHeader {
@@ -68,4 +71,29 @@ button {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 18px;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+  padding: 4px;
+  width: 350px;
+  border: 3px solid rgb(34, 34, 34);
+  border-radius: 0.5em;
+  font-size: 18px;
+  color: rgb(34, 34, 34);
+  font-kerning: normal;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+  border: 3px solid black;
+  color: black;
 }
