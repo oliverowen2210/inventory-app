@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+   form(action="", method="POST", style="display: flex; flex-direction: column; text-align: center")
+      h3.contentHeaderText Deleteing #{category.name} category
+      if category_items.length 
+         p(style="font-weight: bold; font-size: 18px") The following items will also be deleted:
+         ul(style="list-style: none; padding: 0;")
+            each item in category_items 
+               li(style="margin-bottom: 8px; font-weight: bold; font-size: 14px,") #{item.name}
+      p(style="font-weight: bold; font-size: 18px") Proceed?
+      input#id.form-control(name="id", value=category._id, type="hidden")
+      button(style="width: 100px; margin: 0 auto;") Submit
+         
+      
