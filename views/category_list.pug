@@ -7,17 +7,19 @@ block content
       h2.contentHeaderText(style="font-weight: 100") #[strong #{item_count}] items in #[strong #{category_count}] categories
       a(href="/inventory/category/create")
         button(style="width: 200px") + Add new category
-  div(style="display: grid; place-items: center; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 1fr")
+  div.cardGrid
     each category in categories 
       div.category
-        div.categoryImageWrapper
-          img.categoryImage(src='/images/categorypage.png')
-        div.categoryInfo
-          h3 #{category.name}
-          p #{category.description}
-        div.categoryButtons
+        a(href=category.URL, style="display: flex; text-decoration: none")
+          div.cardImageWrapper
+            img.cardImage(src='/images/categorypage.png')
+          div.cardInfo
+            h3 #{category.name}
+            p #{category.description}
+        div.cardButtons
           button(style="width: 120px") Update
-          button(style="width: 120px; background-color: red") Delete
+          a(href=category.URL+"/delete")
+            button(style="width: 120px; background-color: red") Delete
     else 
       p No categories to display.
 
