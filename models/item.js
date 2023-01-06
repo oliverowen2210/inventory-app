@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  category: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+  category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
   price: { type: Number, required: true },
   count: { type: Number, required: true },
 });
 
 ItemSchema.virtual("URL").get(function () {
-  return `inventory/item/${this._id}`;
+  return `/inventory/item/${this._id}`;
 });
 
 module.exports = mongoose.model("Item", ItemSchema);
