@@ -3,6 +3,8 @@ const Item = require("../models/item");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
+const mongoose = require("mongoose");
+const path = require("path");
 
 exports.item_create_get = (req, res, next) => {
   Category.find({}).exec((err, categories) => {
@@ -40,8 +42,14 @@ exports.item_create_post = [
       price: req.body.price,
       count: req.body.count,
       category: req.body.category,
+      _id: req.file
+        ? mongoose.Types.ObjectId(path.parse(req.file.filename).name.trim())
+        : mongoose.Types.ObjectId(),
     });
-    if (!errors.isEmpty()) {
+    if (
+      !errors.isEmpty() ||
+      (req.file && path.parse(req.file.filename).ext !== ".png")
+    ) {
       Category.find({}).exec((err, results) => {
         if (err) return next(err);
         if (results === null) {
@@ -179,7 +187,9 @@ exports.item_update_post = [
     });
 
     Item.findByIdAndUpdate(req.params.id, item, {}, (err, theitem) => {
-      if (err) return next(err);
+      if (err || (req.file && path.parse(req.file.filename).ext !== ".png")) {
+        return next(err);
+      }
       Category.findById(theitem.category).exec((err, result) => {
         res.redirect(result.URL);
       });
