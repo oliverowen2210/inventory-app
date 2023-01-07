@@ -6,14 +6,16 @@ block content
             div(style="width: 175px;")
             div
                h2.contentHeaderText(style="margin: 0; padding: 12px 24px; text-align: center") #{category.name}
+               div 
+                  img(style="max-width:200px; max-height:200px;", src=category.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
                p(style="text-align: center") #{category.description}
             a(href="/inventory/item/create")
                button(style="width: 175px") + Add new item
    div.cardGrid
       each item in items 
-         div.category 
+         div.card
             div.cardImageWrapper
-               img.cardImage(src='/images/categorypage.png')
+               img.cardImage(src=item.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
             div.cardInfo
                h3 #{item.name} • $#{item.price}
                p(style="flex-grow: 1") #{item.description}
