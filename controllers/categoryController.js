@@ -41,11 +41,11 @@ exports.category_create_get = (req, res) => {
 
 exports.category_create_post = [
   body("name", "A category name is required.")
-    .isLength({ min: 1, max: 110 })
+    .isLength({ min: 1, max: 30 })
     .trim()
     .escape(),
   body("description", "A category description is required.")
-    .isLength({ min: 1, max: 20 })
+    .isLength({ min: 1, max: 110 })
     .trim()
     .escape(),
 
@@ -58,7 +58,11 @@ exports.category_create_post = [
     });
 
     if (!errors.isEmpty()) {
-      res.render("category_form", { title: "New category", category, errors });
+      res.render("category_form", {
+        title: "New category",
+        category,
+        errors: errors.array(),
+      });
     } else {
       category.save((err, new_category) => {
         if (err) return next(err);
@@ -137,3 +141,55 @@ exports.category_delete_post = (req, res, next) => {
     }
   );
 };
+
+exports.category_update_get = (req, res, next) => {
+  Category.findById(req.params.id).exec((err, category) => {
+    if (err) return next(err);
+    if (category === null) {
+      err = new Error("No category was found");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render("category_form", { title: "Update category", category });
+  });
+};
+
+exports.category_update_post = [
+  body("name", "A category name is required.")
+    .isLength({ min: 1, max: 30 })
+    .trim()
+    .escape(),
+  body("description", "A category description is required.")
+    .isLength({ min: 1, max: 110 })
+    .trim()
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      res.render("category_form", {
+        title: "New category",
+        category,
+        errors: errors.array(),
+      });
+    } else {
+      Category.findByIdAndUpdate(
+        req.params.id,
+        category,
+        {},
+        (err, thecategory) => {
+          if (err) return next(err);
+          res.redirect(thecategory.URL);
+        }
+      );
+    }
+  },
+];
