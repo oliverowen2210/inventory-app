@@ -82,6 +82,51 @@ exports.item_create_post = [
     }
   },
 ];
+
+exports.item_delete_get = (req, res, next) => {
+  Item.findById(req.params.id).exec((err, item) => {
+    if (err) return next(err);
+    if (item === null) {
+      err = new Error("Item not found.");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.render("item_delete", { title: "Deleting item", item });
+  });
+};
+
+exports.item_delete_post = (req, res, next) => {
+  async.waterfall(
+    [
+      (callback) => {
+        Item.findById(req.body.id).exec((err, result) => {
+          callback(err, result);
+        });
+      },
+      (item, callback) => {
+        async.parallel(
+          {
+            category(cb) {
+              Category.findById(item.category).exec(cb);
+            },
+            deleteItem(cb) {
+              Item.findByIdAndRemove(req.body.id).exec(cb);
+            },
+          },
+          (err, results) => {
+            if (err) return next(err);
+            res.redirect(results.category.URL);
+          }
+        );
+      },
+    ],
+    (err, results) => {
+      if (err) console.log(err);
+    }
+  );
+};
+
         if (err) return next(err);
         res.redirect(new_item.URL);
       });
