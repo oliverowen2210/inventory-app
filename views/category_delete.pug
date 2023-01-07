@@ -2,7 +2,7 @@ extends layout
 
 block content 
    form(action="", method="POST", style="display: flex; flex-direction: column; text-align: center")
-      h3.contentHeaderText Deleteing #{category.name} category
+      h3.contentHeaderText Deleting #{category.name} category
       if category_items.length 
          p(style="font-weight: bold; font-size: 18px") The following items will also be deleted:
          ul(style="list-style: none; padding: 0;")
