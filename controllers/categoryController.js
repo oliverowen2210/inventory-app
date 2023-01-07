@@ -4,7 +4,7 @@ const Item = require("../models/item");
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 
-exports.categories = (req, res) => {
+exports.categories = (req, res, next) => {
   async.parallel(
     {
       categories(cb) {
