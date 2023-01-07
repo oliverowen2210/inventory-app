@@ -1,0 +1,10 @@
+extends layout 
+
+block content 
+   form(action="", method="POST", style="display: flex; flex-direction: column; text-align: center")
+      h3.contentHeaderText Deleting #{item.name}
+      p(style="font-weight: bold; font-size: 18px") Proceed?
+      input#id.form-control(name="id", value=item._id, type="hidden")
+      button(style="width: 100px; margin: 0 auto;") Submit
+         
+      
