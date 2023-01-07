@@ -7,19 +7,22 @@ block content
       form(action="" method="POST" style="width: fit-content") 
          div.inputGroup
             label(for="name") Name 
-            input#name.form-control(type="text" name="name" maxlength=20 value=(category ? category.name : ''))
+            input#name.form-control(type="text" name="name" maxlength=40 value=(item ? item.name : ''))
          div.inputGroup
             label(for="description") Description 
-            textarea#description.form-control(name='description' rows=4 maxlength=110) #{category ? category.description : ''}
+            textarea#description.form-control(name='description' rows=4 maxlength=110) #{item ? item.description : ''}
          div.inputGroup
             label(for="category") Category
             select#category.form-control(name='category')
                each category in categories
-                  option(value=category._id, selected=(category.selected) ? 'selected' : '') #{category.name}
+                  if item 
+                     option(value=category._id, selected=(category._id.toString() === item.category._id.toString() || category._id.toString() === item.category) ? 'selected' : false) #{category.name}
+                  else 
+                     option(value=category._id) #{category.name}
          div.inputGroup
             label(for="price") Price
-            input#price.form-control(type="tel" name="price" maxlength=7 value=(category ? category.price : ''))
+            input#price.form-control(type="tel" name="price" maxlength=7 value=(item ? item.price : ''))
          div.inputGroup
             label(for="count") Count
-            input#count.form-control(type="tel" name="count" maxlength=5 value=(category ? category.count : ''))
+            input#count.form-control(type="tel" name="count" maxlength=5 value=(item ? item.count : ''))
          button(style="width: 80px;" type="submit") Submit
