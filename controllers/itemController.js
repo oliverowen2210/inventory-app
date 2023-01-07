@@ -127,9 +127,63 @@ exports.item_delete_post = (req, res, next) => {
   );
 };
 
+exports.item_update_get = (req, res, next) => {
+  async.parallel(
+    {
+      item(cb) {
+        Item.findById(req.params.id).exec(cb);
+      },
+      categories(cb) {
+        Category.find({}).exec(cb);
+      },
+    },
+    (err, results) => {
         if (err) return next(err);
-        res.redirect(new_item.URL);
+      if (results.item === null) {
+        err = new Error("Item not found");
+        err.status = 404;
+        return next(err);
+      }
+
+      res.render("item_form", {
+        title: "Update item",
+        item: results.item,
+        categories: results.categories,
       });
     }
+  );
+};
+
+exports.item_update_post = [
+  body("name", "An item name is required.")
+    .trim()
+    .isLength({ min: 1, max: 40 })
+    .escape(),
+  body("description", "An item description is required.")
+    .isLength({ min: 1, max: 50 })
+    .trim()
+    .escape(),
+  body("price", "An item price is required.").trim().isNumeric().escape(),
+  body("count", "An item count is required.").trim().isNumeric().escape(),
+  body("category", "A category is required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  (req, res, next) => {
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      count: req.body.count,
+      category: req.body.category,
+      _id: req.params.id,
+    });
+
+    Item.findByIdAndUpdate(req.params.id, item, {}, (err, theitem) => {
+      if (err) return next(err);
+      Category.findById(theitem.category).exec((err, result) => {
+        res.redirect(result.URL);
+      });
+    });
   },
 ];
