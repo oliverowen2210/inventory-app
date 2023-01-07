@@ -10,14 +10,15 @@ block content
   div.cardGrid
     each category in categories 
       div.category
-        a(href=category.URL, style="display: flex; text-decoration: none")
+        a(href=category.URL, style="display: flex; text-decoration: none; width: 80%")
           div.cardImageWrapper
             img.cardImage(src='/images/categorypage.png')
           div.cardInfo
             h3 #{category.name}
             p #{category.description}
         div.cardButtons
-          button(style="width: 120px") Update
+          a(href=category.URL+'/update')
+            button(style="width: 120px") Update
           a(href=category.URL+"/delete")
             button(style="width: 120px; background-color: red") Delete
     else 
