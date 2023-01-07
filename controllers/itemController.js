@@ -48,21 +48,20 @@ exports.item_create_post = [
           err = new Error("No categories were found.");
           err.status = 404;
           return next(err);
-        }
-
-        for (let category in results) {
-          if (category._id.toString() === req.body.category.toString()) {
-            category.selected = true;
-            break;
+        } else {
+          for (let category in results) {
+            if (category._id.toString() === req.body.category.toString()) {
+              category.selected = true;
+              break;
+            }
           }
-        }
 
-        res.render("item_form", {
-          title: "New form",
-          categories: results,
-          item,
-          errors,
-        });
+          res.render("item_form", {
+            title: "New form",
+            categories: results,
+            item,
+            errors,
+          });
         }
       });
     } else {
@@ -138,7 +137,7 @@ exports.item_update_get = (req, res, next) => {
       },
     },
     (err, results) => {
-        if (err) return next(err);
+      if (err) return next(err);
       if (results.item === null) {
         err = new Error("Item not found");
         err.status = 404;
