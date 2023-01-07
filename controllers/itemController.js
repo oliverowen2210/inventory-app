@@ -22,7 +22,7 @@ exports.item_create_post = [
     .isLength({ min: 1, max: 40 })
     .escape(),
   body("description", "An item description is required.")
-    .isLength({ min: 1, max: 50 })
+    .isLength({ min: 1, max: 110 })
     .trim()
     .escape(),
   body("price", "An item price is required.").trim().isNumeric().escape(),
