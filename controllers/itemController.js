@@ -63,9 +63,25 @@ exports.item_create_post = [
           item,
           errors,
         });
+        }
       });
     } else {
-      item.save((err, new_item) => {
+      async.parallel(
+        {
+          save(cb) {
+            item.save(cb);
+          },
+          category(cb) {
+            Category.findById(req.body.category).exec(cb);
+          },
+        },
+        (err, results) => {
+          res.redirect(results.category.URL);
+        }
+      );
+    }
+  },
+];
         if (err) return next(err);
         res.redirect(new_item.URL);
       });
