@@ -11,9 +11,7 @@ block content
                button(style="width: 175px") + Add new item
    div.cardGrid
       each item in items 
-         div.category 
-            div.cardImageWrapper
-               img.cardImage(src='/images/categorypage.png')
+         div.card
             div.cardInfo
                h3 #{item.name} • $#{item.price}
                p(style="flex-grow: 1") #{item.description}

@@ -9,10 +9,8 @@ block content
         button(style="width: 200px") + Add new category
   div.cardGrid
     each category in categories 
-      div.category
+      div.card
         a(href=category.URL, style="display: flex; text-decoration: none; width: 80%")
-          div.cardImageWrapper
-            img.cardImage(src='/images/categorypage.png')
           div.cardInfo
             h3 #{category.name}
             p #{category.description}
