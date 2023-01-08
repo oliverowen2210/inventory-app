@@ -3,6 +3,8 @@ const Item = require("../models/item");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
+const mongoose = require("mongoose");
+const path = require("path");
 
 exports.categories = (req, res, next) => {
   async.parallel(
@@ -48,16 +50,21 @@ exports.category_create_post = [
     .isLength({ min: 1, max: 110 })
     .trim()
     .escape(),
-
   (req, res, next) => {
     const errors = validationResult(req);
 
     const category = new Category({
       name: req.body.name,
       description: req.body.description,
+      _id: req.file
+        ? mongoose.Types.ObjectId(path.parse(req.file.filename).name.trim())
+        : mongoose.Types.ObjectId(),
     });
 
-    if (!errors.isEmpty()) {
+    if (
+      !errors.isEmpty() ||
+      (req.file && path.parse(req.file.filename).ext !== ".png")
+    ) {
       res.render("category_form", {
         title: "New category",
         category,
@@ -174,7 +181,10 @@ exports.category_update_post = [
       _id: req.params.id,
     });
 
-    if (!errors.isEmpty()) {
+    if (
+      !errors.isEmpty() ||
+      (req.file && path.parse(req.file.filename).ext !== ".png")
+    ) {
       res.render("category_form", {
         title: "New category",
         category,

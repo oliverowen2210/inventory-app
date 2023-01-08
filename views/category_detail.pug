@@ -6,6 +6,8 @@ block content
             div(style="width: 175px;")
             div
                h2.contentHeaderText(style="margin: 0; padding: 12px 24px; text-align: center") #{category.name}
+               div 
+                  img(style="max-width:200px; max-height:200px;", src=category.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
                p(style="text-align: center") #{category.description}
             a(href="/inventory/item/create")
                button(style="width: 175px") + Add new item

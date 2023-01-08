@@ -13,4 +13,8 @@ ItemSchema.virtual("URL").get(function () {
   return `/inventory/item/${this._id}`;
 });
 
+ItemSchema.virtual("imageURL").get(function () {
+  return `/images/items/${this._id}.png`;
+});
+
 module.exports = mongoose.model("Item", ItemSchema);

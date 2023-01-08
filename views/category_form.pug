@@ -4,11 +4,15 @@ block content
 
    div(style="flex-grow: 1; display: flex; align-items: center; flex-direction: column")
       h2.contentHeaderText= title
-      form(action="" method="POST" style="width: fit-content") 
+      form(action="" method="POST" style="width: fit-content" enctype="multipart/form-data") 
          div.inputGroup
             label(for="name") Name 
             input#name.form-control(type="text" name="name" maxlength=30 value=(category ? category.name : ''))
          div.inputGroup
             label(for="description") Description 
             textarea#description.form-control(name='description' rows=4 maxlength=110) #{category ? category.description : ''}
+         if !category
+            div.inputGroup
+               label(for="uploaded-image") Image (png)
+               input#uploaded-image.form-control-file(type='file', name='uploaded-image' accept="image/png")
          button(style="width: 80px;" type="submit") Submit
