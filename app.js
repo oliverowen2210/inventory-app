@@ -3,6 +3,8 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const helmet = require("helmet");
 
@@ -11,9 +13,7 @@ const inventoryRouter = require("./routes/inventory");
 var app = express();
 
 const mongoose = require("mongoose");
-const dev_db_url =
-  "mongodb+srv://oliverowen2210:g2yGmzois8d92NH6@cluster0.20vsymq.mongodb.net/inventory?retryWrites=true&w=majority";
-const mongoDB = process.env.MONGODB_URI || dev_db_url;
+const mongoDB = process.env.MONGODB_URI || process.env.DEV_DB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
