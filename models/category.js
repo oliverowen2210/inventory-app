@@ -11,7 +11,7 @@ CategorySchema.virtual("URL").get(function () {
 });
 
 CategorySchema.virtual("imageURL").get(function () {
-  return `/images/categories/${this._id}.png`;
+  return `gs://inventory-app-2cdf8.appspot.com/categories/${this._id}`;
 });
 
 CategorySchema.virtual("itemCount").get(function () {
