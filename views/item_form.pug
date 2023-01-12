@@ -11,10 +11,9 @@ block content
          div.inputGroup
             label(for="description") Description 
             textarea#description.form-control(name='description' rows=4 maxlength=110) #{item ? item.description : ''}
-         if !item
-            div.inputGroup
-               label(for="uploaded-image") Image (png)
-               input#uploaded-image.form-control-file(type='file', name='uploaded-image' accept="image/png")
+         div.inputGroup
+            label(for="uploaded-image") Image (png)
+            input#uploaded-image.form-control-file(type='file', name='uploaded-image' accept="image/png")
          div.inputGroup
             label(for="category") Category
             select#category.form-control(name='category')
