@@ -53,12 +53,10 @@ exports.category_create_get = (req, res) => {
 exports.category_create_post = [
   body("name", "A category name is required.")
     .isLength({ min: 1, max: 30 })
-    .trim()
-    .escape(),
+    .trim(),
   body("description", "A category description is required.")
     .isLength({ min: 1, max: 110 })
-    .trim()
-    .escape(),
+    .trim(),
   async (req, res, next) => {
     const errors = validationResult(req);
 
