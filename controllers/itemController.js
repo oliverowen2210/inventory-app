@@ -29,18 +29,14 @@ exports.item_create_get = (req, res, next) => {
 };
 
 exports.item_create_post = [
-  body("name", "An item name is required.")
-    .trim()
-    .isLength({ min: 1, max: 40 }),
-  body("description", "An item description is required.")
-    .isLength({ min: 1, max: 110 })
-    .trim(),
+  body("name", "An item name is required.").isLength({ min: 1, max: 40 }),
+  body("description", "An item description is required.").isLength({
+    min: 1,
+    max: 110,
+  }),
   body("price", "An item price is required.").trim().isNumeric(),
   body("count", "An item count is required.").trim().isNumeric(),
-  body("category", "A category is required")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
+  body("category", "A category is required").isLength({ min: 1 }).escape(),
   async (req, res, next) => {
     const errors = validationResult(req);
 
@@ -192,19 +188,14 @@ exports.item_update_get = (req, res, next) => {
 
 exports.item_update_post = [
   body("name", "An item name is required.")
-    .trim()
     .isLength({ min: 1, max: 40 })
     .escape(),
   body("description", "An item description is required.")
     .isLength({ min: 1, max: 50 })
-    .trim()
     .escape(),
   body("price", "An item price is required.").trim().isNumeric().escape(),
   body("count", "An item count is required.").trim().isNumeric().escape(),
-  body("category", "A category is required")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
+  body("category", "A category is required").isLength({ min: 1 }).escape(),
   async (req, res, next) => {
     let itemID = req.params.id;
     let imageURL = null;
