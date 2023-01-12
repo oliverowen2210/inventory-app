@@ -4,14 +4,11 @@ const Schema = mongoose.Schema;
 const CategorySchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
+  imageURL: { type: String },
 });
 
 CategorySchema.virtual("URL").get(function () {
   return `/inventory/category/${this._id}`;
-});
-
-CategorySchema.virtual("imageURL").get(function () {
-  return `gs://inventory-app-2cdf8.appspot.com/categories/${this._id}`;
 });
 
 CategorySchema.virtual("itemCount").get(function () {
