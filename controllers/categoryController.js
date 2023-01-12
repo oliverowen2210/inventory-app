@@ -1,10 +1,14 @@
-const Category = require("../models/category");
-const Item = require("../models/item");
+const firebase = require("../firebase");
+const { getStorage, ref, uploadBytesResumable } = require("firebase/storage");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
-const mongoose = require("mongoose");
 const path = require("path");
+const mongoose = require("mongoose");
+
+const Category = require("../models/category");
+const Item = require("../models/item");
+const makeID = require("../utils").makeID;
 
 exports.categories = (req, res, next) => {
   async.parallel(
