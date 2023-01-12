@@ -205,7 +205,28 @@ exports.item_update_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  (req, res, next) => {
+  async (req, res, next) => {
+    let itemID = req.params.id;
+    let imageURL = null;
+
+    if (req.file) {
+      if (path.parse(req.file.originalname).ext !== ".png") {
+        err = new Error("Image must be png");
+        err.status = 400;
+        return next(err);
+      }
+      const metadata = {
+        contentType: "image/png",
+        name: imageID,
+      };
+
+      const storage = getStorage(firebase);
+      const storageRef = ref(storage, "categories/" + `${itemID}`);
+
+      await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+      imageURL = await getDownloadURL(storageRef);
+    }
+
     const item = new Item({
       name: req.body.name,
       description: req.body.description,

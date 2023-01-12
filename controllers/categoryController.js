@@ -202,6 +202,22 @@ exports.category_update_post = [
   (req, res, next) => {
     const errors = validationResult(req);
 
+    let categoryID = req.params.id;
+    let imageURL = null;
+
+    if (req.file) {
+      const metadata = {
+        contentType: "image/png",
+        name: categoryID,
+      };
+
+      const storage = getStorage(firebase);
+      const storageRef = ref(storage, "categories/" + `${categoryID}`);
+
+      await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+      imageURL = await getDownloadURL(storageRef);
+    }
+
     const category = new Category({
       name: req.body.name,
       description: req.body.description,
