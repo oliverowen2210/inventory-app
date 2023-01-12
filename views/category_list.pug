@@ -11,6 +11,9 @@ block content
     each category in categories 
       div.card
         a(href=category.URL, style="display: flex; text-decoration: none; width: 80%")
+          if (category.imageURL)
+            div.cardImageWrapper
+              img.cardImage(src=category.imageURL)
           div.cardInfo
             h3 #{category.name}
             p #{category.description}

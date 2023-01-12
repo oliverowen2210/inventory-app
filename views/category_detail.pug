@@ -14,6 +14,9 @@ block content
    div.cardGrid
       each item in items 
          div.card
+            if (item.imageURL)
+               div.cardImageWrapper
+                  img.cardImage(src=item.imageURL)
             div.cardInfo
                h3 #{item.name} • $#{item.price}
                p(style="flex-grow: 1") #{item.description}
