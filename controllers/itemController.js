@@ -1,10 +1,20 @@
-const Category = require("../models/category");
-const Item = require("../models/item");
+const firebase = require("../firebase");
+const {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} = require("firebase/storage");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
 const mongoose = require("mongoose");
 const path = require("path");
+
+const Category = require("../models/category");
+const Item = require("../models/item");
+
+const makeID = require("../utils").makeID;
 
 exports.item_create_get = (req, res, next) => {
   Category.find({}).exec((err, categories) => {
@@ -33,8 +43,24 @@ exports.item_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
+
+    let imageID = makeID(24);
+    let imageURL = null;
+
+    if (req.file) {
+      const metadata = {
+        contentType: "image/png",
+        name: imageID,
+      };
+
+      const storage = getStorage(firebase);
+      const storageRef = ref(storage, "categories/" + `${imageID}`);
+
+      await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+      imageURL = await getDownloadURL(storageRef);
+    }
 
     const item = new Item({
       name: req.body.name,
@@ -42,13 +68,12 @@ exports.item_create_post = [
       price: req.body.price,
       count: req.body.count,
       category: req.body.category,
-      _id: req.file
-        ? mongoose.Types.ObjectId(path.parse(req.file.filename).name.trim())
-        : mongoose.Types.ObjectId(),
+      imageURL,
+      _id: mongoose.Types.ObjectId(imageID),
     });
     if (
       !errors.isEmpty() ||
-      (req.file && path.parse(req.file.filename).ext !== ".png")
+      (req.file && path.parse(req.file.originalname).ext !== ".png")
     ) {
       Category.find({}).exec((err, results) => {
         if (err) return next(err);
