@@ -224,7 +224,8 @@ exports.item_update_post = [
       price: req.body.price,
       count: req.body.count,
       category: req.body.category,
-      _id: req.params.id,
+      imageURL,
+      _id: mongoose.Types.ObjectId(itemID),
     });
 
     Item.findByIdAndUpdate(req.params.id, item, {}, (err, theitem) => {

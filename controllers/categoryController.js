@@ -212,7 +212,8 @@ exports.category_update_post = [
     const category = new Category({
       name: req.body.name,
       description: req.body.description,
-      _id: req.params.id,
+      imageURL,
+      _id: mongoose.Types.ObjectId(categoryID),
     });
 
     if (!errors.isEmpty()) {
