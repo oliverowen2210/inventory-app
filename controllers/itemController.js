@@ -40,7 +40,7 @@ exports.item_create_post = [
   async (req, res, next) => {
     const errors = validationResult(req);
 
-    let imageID = makeID(24);
+    let itemID = makeID(24);
     let imageURL = null;
 
     if (req.file) {
@@ -56,7 +56,7 @@ exports.item_create_post = [
       };
 
       const storage = getStorage(firebase);
-      const storageRef = ref(storage, "categories/" + `${imageID}`);
+      const storageRef = ref(storage, "categories/" + `${itemID}`);
 
       await uploadBytesResumable(storageRef, req.file.buffer, metadata);
       imageURL = await getDownloadURL(storageRef);
@@ -69,7 +69,7 @@ exports.item_create_post = [
       count: req.body.count,
       category: req.body.category,
       imageURL,
-      _id: mongoose.Types.ObjectId(imageID),
+      _id: mongoose.Types.ObjectId(itemID),
     });
     if (
       !errors.isEmpty() ||
