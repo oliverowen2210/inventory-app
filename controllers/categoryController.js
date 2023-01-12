@@ -88,15 +88,8 @@ exports.category_create_post = [
       _id: mongoose.Types.ObjectId(categoryID),
     });
 
-    if (
-      !errors.isEmpty() ||
-      (req.file && path.parse(req.file.originalname).ext !== ".png")
-    ) {
-      res.render("category_form", {
-        title: "New category",
-        category,
-        errors: errors.array(),
-      });
+    if (!errors.isEmpty()) {
+      res.redirect(`/inventory/category/${categoryID}/update`);
     } else {
       category.save((err, new_category) => {
         if (err) return next(err);
@@ -224,15 +217,8 @@ exports.category_update_post = [
       _id: req.params.id,
     });
 
-    if (
-      !errors.isEmpty() ||
-      (req.file && path.parse(req.file.filename).ext !== ".png")
-    ) {
-      res.render("category_form", {
-        title: "New category",
-        category,
-        errors: errors.array(),
-      });
+    if (!errors.isEmpty()) {
+      res.redirect(`/inventory/category/${categoryID}/update`);
     } else {
       Category.findByIdAndUpdate(
         req.params.id,
