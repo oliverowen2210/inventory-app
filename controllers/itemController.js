@@ -229,7 +229,7 @@ exports.item_update_post = [
     });
 
     Item.findByIdAndUpdate(req.params.id, item, {}, (err, theitem) => {
-      if (err || (req.file && path.parse(req.file.filename).ext !== ".png")) {
+      if (err) {
         return next(err);
       }
       Category.findById(theitem.category).exec((err, result) => {
