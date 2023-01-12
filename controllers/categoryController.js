@@ -190,7 +190,7 @@ exports.category_update_post = [
     .isLength({ min: 1, max: 110 })
     .trim(),
 
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
 
     let categoryID = req.params.id;
