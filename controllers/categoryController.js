@@ -1,5 +1,10 @@
 const firebase = require("../firebase");
-const { getStorage, ref, uploadBytesResumable } = require("firebase/storage");
+const {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} = require("firebase/storage");
 
 const { body, validationResult } = require("express-validator");
 const async = require("async");
@@ -54,10 +59,11 @@ exports.category_create_post = [
     .isLength({ min: 1, max: 110 })
     .trim()
     .escape(),
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
 
     let categoryID = makeID(24);
+    let imageURL = null;
 
     if (req.file) {
       const metadata = {
@@ -68,12 +74,14 @@ exports.category_create_post = [
       const storage = getStorage(firebase);
       const storageRef = ref(storage, "categories/" + `${categoryID}`);
 
-      uploadBytesResumable(storageRef, req.file.buffer, metadata);
+      await uploadBytesResumable(storageRef, req.file.buffer, metadata);
+      imageURL = await getDownloadURL(storageRef);
     }
 
     const category = new Category({
       name: req.body.name,
       description: req.body.description,
+      imageURL,
       _id: mongoose.Types.ObjectId(categoryID),
     });
 
