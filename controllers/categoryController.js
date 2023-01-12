@@ -57,17 +57,29 @@ exports.category_create_post = [
   (req, res, next) => {
     const errors = validationResult(req);
 
+    let categoryID = makeID(24);
+
+    if (req.file) {
+      const metadata = {
+        contentType: "image/png",
+        name: categoryID,
+      };
+
+      const storage = getStorage(firebase);
+      const storageRef = ref(storage, "categories/" + `${categoryID}`);
+
+      uploadBytesResumable(storageRef, req.file.buffer, metadata);
+    }
+
     const category = new Category({
       name: req.body.name,
       description: req.body.description,
-      _id: req.file
-        ? mongoose.Types.ObjectId(path.parse(req.file.filename).name.trim())
-        : mongoose.Types.ObjectId(),
+      _id: mongoose.Types.ObjectId(categoryID),
     });
 
     if (
       !errors.isEmpty() ||
-      (req.file && path.parse(req.file.filename).ext !== ".png")
+      (req.file && path.parse(req.file.originalname).ext !== ".png")
     ) {
       res.render("category_form", {
         title: "New category",
