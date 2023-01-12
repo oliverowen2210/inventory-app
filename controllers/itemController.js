@@ -48,9 +48,15 @@ exports.item_create_post = [
     let imageURL = null;
 
     if (req.file) {
+      if (path.parse(req.file.originalname).ext !== ".png") {
+        err = new Error("Image must be png");
+        err.status = 400;
+        return next(err);
+      }
+
       const metadata = {
         contentType: "image/png",
-        name: imageID,
+        name: itemID,
       };
 
       const storage = getStorage(firebase);
