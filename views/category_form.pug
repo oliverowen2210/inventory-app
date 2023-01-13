@@ -7,10 +7,10 @@ block content
       form(action="" method="POST" style="width: fit-content" enctype="multipart/form-data") 
          div.inputGroup
             label(for="name") Name 
-            input#name.form-control(type="text" name="name" maxlength=30 value=(category ? category.name : ''))
+            input#name.form-control(type="text" name="name" maxlength=30 value=(category === undefined ? '' : category.name))
          div.inputGroup
             label(for="description") Description 
-            textarea#description.form-control(name='description' rows=4 maxlength=110) #{category ? category.description : ''}
+            textarea#description.form-control(name='description' rows=4 maxlength=110) #{category === undefined ? '' : category.description}
          div.inputGroup
             label(for="uploaded-image") Image (png)
             input#uploaded-image.form-control-file(type='file', name='uploaded-image' accept="image/png")
