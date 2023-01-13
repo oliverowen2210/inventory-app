@@ -39,6 +39,7 @@ router.get(
 );
 router.post(
   "/inventory/category/:id/update",
+  multerUpload.single("uploaded-image"),
   categoryController.category_update_post
 );
 
@@ -57,6 +58,10 @@ router.get("/inventory/item/:id/delete", itemController.item_delete_get);
 router.post("/inventory/item/:id/delete", itemController.item_delete_post);
 
 router.get("/inventory/item/:id/update", itemController.item_update_get);
-router.post("/inventory/item/:id/update", itemController.item_update_post);
+router.post(
+  "/inventory/item/:id/update",
+  multerUpload.single("uploaded-image"),
+  itemController.item_update_post
+);
 
 module.exports = router;
