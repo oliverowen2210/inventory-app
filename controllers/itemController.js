@@ -198,7 +198,7 @@ exports.item_update_post = [
   body("category", "A category is required").isLength({ min: 1 }).escape(),
   async (req, res, next) => {
     let itemID = req.params.id;
-    let imageURL = null;
+    let itemURL = null;
 
     if (req.file) {
       if (path.parse(req.file.originalname).ext !== ".png") {
@@ -208,7 +208,7 @@ exports.item_update_post = [
       }
       const metadata = {
         contentType: "image/png",
-        name: imageID,
+        name: itemID,
       };
 
       const storage = getStorage(firebase);
