@@ -178,7 +178,10 @@ exports.category_update_get = (req, res, next) => {
       return next(err);
     }
 
-    res.render("category_form", { title: "Update category", category });
+    res.render("category_form", {
+      title: "Update category",
+      category: category,
+    });
   });
 };
 
@@ -197,6 +200,11 @@ exports.category_update_post = [
     let imageURL = null;
 
     if (req.file) {
+      if (path.parse(req.file.originalname).ext !== ".png") {
+        err = new Error("Image must be png");
+        err.status = 400;
+        return next(err);
+      }
       const metadata = {
         contentType: "image/png",
         name: categoryID,
@@ -204,7 +212,6 @@ exports.category_update_post = [
 
       const storage = getStorage(firebase);
       const storageRef = ref(storage, "categories/" + `${categoryID}`);
-
       await uploadBytesResumable(storageRef, req.file.buffer, metadata);
       imageURL = await getDownloadURL(storageRef);
     }
