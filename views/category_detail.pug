@@ -7,13 +7,17 @@ block header
       div(style="display: flex; justify-content: center")
          img(style="width: auto; height: auto; max-width:200px; max-height:200px;", src=category.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
       p.contentDescription #{category.description}
-   div(style="flex: 1; display: flex; height: 200px")
-      div(style="width:28px")
-      div(style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px")
-         a(style="text-decoration: none;", href=category.URL+"/update")
-            button.contentHeaderButton Update
+      div
+         h3(style="text-align: center") #{items.length} items in this category 
+      div(style="display: flex; justify-content: space-between")
          a(style="text-decoration: none;", href="/item/new")
-            button.contentHeaderButton Add new item
+               button.contentHeaderButton Add new item
+         a(style="text-decoration: none;", href=category.URL+"/update")
+               button.contentHeaderButton Update
+
+   div(style="flex: 1")
+
+
 
 block grid
    each item in items 
