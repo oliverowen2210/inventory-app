@@ -86,8 +86,7 @@ a {
 }
 
 .contentHeaderButton {
-  padding: 8px;
-  height: 40px;
+  padding: 6px;
   display: flex;
   align-items: center;
 }
