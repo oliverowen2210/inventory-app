@@ -187,12 +187,10 @@ exports.category_update_get = (req, res, next) => {
 exports.category_update_post = [
   body("name", "A category name is required.")
     .isLength({ min: 1, max: 30 })
-    .trim()
-    .escape(),
+    .trim(),
   body("description", "A category description is required.")
     .isLength({ min: 1, max: 110 })
-    .trim()
-    .escape(),
+    .trim(),
 
   (req, res, next) => {
     const errors = validationResult(req);
