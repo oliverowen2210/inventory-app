@@ -79,10 +79,14 @@ exports.category_create_get = (req, res) => {
 
 exports.category_create_post = [
   body("name", "A category name is required.")
-    .isLength({ min: 1, max: 30 })
+    .isLength({ max: 30 })
+
+    .notEmpty()
     .trim(),
   body("description", "A category description is required.")
-    .isLength({ min: 1, max: 110 })
+    .isLength({ max: 110 })
+
+    .notEmpty()
     .trim(),
   async (req, res, next) => {
     const errors = validationResult(req);
@@ -186,10 +190,12 @@ exports.category_update_get = (req, res, next) => {
 
 exports.category_update_post = [
   body("name", "A category name is required.")
-    .isLength({ min: 1, max: 30 })
+    .isLength({ max: 30 })
+    .notEmpty()
     .trim(),
   body("description", "A category description is required.")
-    .isLength({ min: 1, max: 110 })
+    .isLength({ max: 110 })
+    .notEmpty()
     .trim(),
 
   (req, res, next) => {

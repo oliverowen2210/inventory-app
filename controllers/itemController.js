@@ -43,18 +43,15 @@ exports.item_create_get = (req, res, next) => {
 exports.item_create_post = [
   body("name", "An item name is required.")
     .trim()
-    .isLength({ min: 1, max: 40 })
-    .escape(),
+    .isLength({ max: 40 })
+    .notEmpty(),
   body("description", "An item description is required.")
-    .isLength({ min: 1, max: 110 })
-    .trim()
-    .escape(),
-  body("price", "An item price is required.").trim().isNumeric().escape(),
-  body("count", "An item count is required.").trim().isNumeric().escape(),
-  body("category", "A category is required")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
+    .isLength({ max: 110 })
+    .notEmpty()
+    .trim(),
+  body("price", "An item price is required.").trim().isNumeric(),
+  body("count", "An item count is required.").trim().isNumeric(),
+  body("category", "A category is required").trim().notEmpty(),
   async (req, res, next) => {
     const errors = validationResult(req);
 
@@ -201,18 +198,14 @@ exports.item_update_get = (req, res, next) => {
 exports.item_update_post = [
   body("name", "An item name is required.")
     .trim()
-    .isLength({ min: 1, max: 40 })
-    .escape(),
+    .isLength({ max: 40 })
+    .notEmpty(),
   body("description", "An item description is required.")
-    .isLength({ min: 1, max: 50 })
-    .trim()
-    .escape(),
-  body("price", "An item price is required.").trim().isNumeric().escape(),
-  body("count", "An item count is required.").trim().isNumeric().escape(),
-  body("category", "A category is required")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
+    .isLength({ max: 50 })
+    .notEmpty(),
+  body("price", "An item price is required.").trim().isNumeric(),
+  body("count", "An item count is required.").trim().isNumeric(),
+  body("category", "A category is required").trim().notEmpty().escape(),
   (req, res, next) => {
     const item = new Item({
       name: req.body.name,
