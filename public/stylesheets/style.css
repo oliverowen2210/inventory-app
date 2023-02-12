@@ -2,6 +2,7 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   font-size: 18px;
+  color: rgb(0, 0, 0);
 }
 
 a {
@@ -128,7 +129,6 @@ button {
   display: flex;
   flex-direction: column;
   font-weight: bold;
-  font-size: 18px;
   margin-bottom: 18px;
 }
 
@@ -162,8 +162,12 @@ button {
 }
 
 @media only screen and (max-width: 1000px) {
-  body {
+  body,
+  .inputGroup label,
+  .inputGroup input,
+  .inputGroup textarea {
     font-size: calc(1vw + 1.8vh);
+    width: 75vw;
   }
 
   .contentHeaderText {
@@ -183,7 +187,7 @@ button {
   }
 
   button {
-    font-size: 32px;
+    font-size: calc(1vw + 2vh);
     padding: 8px 12px;
   }
 
