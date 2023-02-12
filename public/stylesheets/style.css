@@ -1,6 +1,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 18px;
 }
 
 a {
@@ -20,10 +21,17 @@ a {
   text-align: center;
 }
 
-.contentDescription {
+.contentHeaderDescription {
   flex-grow: 1;
   text-align: center;
   font-size: 1.2em;
+}
+
+.contentHeaderButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  margin: 0 auto;
 }
 
 .contentHeader {
@@ -41,10 +49,6 @@ a {
   margin-bottom: 36px;
   display: flex;
   align-items: center;
-}
-
-.card a {
-  max-height: 150px;
 }
 
 .cardDetailLink {
@@ -85,10 +89,16 @@ a {
   margin-top: 0;
 }
 
-.contentHeaderButton {
-  padding: 6px;
-  display: flex;
-  align-items: center;
+.cardName {
+  margin-right: 14px;
+}
+
+.cardPrice {
+  color: rgb(80, 80, 80);
+}
+
+.cardButton {
+  min-width: 120px;
 }
 
 .cardButtons {
@@ -107,6 +117,11 @@ button {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
+  text-align: center;
+}
+
+.newCategoryButton {
+  width: 200px;
 }
 
 .inputGroup {
@@ -144,6 +159,88 @@ button {
   place-items: center;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 1fr;
+}
+
+@media only screen and (max-width: 1000px) {
+  body {
+    font-size: calc(1vw + 1.8vh);
+  }
+
+  .contentHeaderText {
+    font-size: 48px;
+    padding-top: 32px;
+  }
+
+  .contentHeaderButtons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .contentHeader {
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+
+  button {
+    font-size: 32px;
+    padding: 8px 12px;
+  }
+
+  .newCategoryButton {
+    width: auto;
+  }
+
+  .card {
+    height: auto;
+    padding: 32px;
+    width: 60vw;
+    flex-direction: column;
+  }
+
+  .cardPrice::before {
+    content: "Price ";
+  }
+
+  .cardDetailLink {
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+  }
+
+  .cardImageWrapper {
+    margin: 0 auto;
+  }
+
+  .cardImage {
+    max-width: none;
+  }
+
+  .cardInfo {
+    width: 100%;
+  }
+
+  .cardInfo div {
+    justify-content: space-between;
+  }
+
+  .cardButtons {
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  .cardButtons a button {
+    width: 100px;
+  }
+
+  .cardButtons a button {
+    width: auto;
+  }
+
+  .card a {
+    max-height: none;
+  }
 }
 
 @media only screen and (max-width: 1500px) {
