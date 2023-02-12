@@ -10,7 +10,7 @@ block content
   div.cardGrid
     each category in categories 
       div.card
-        a(href=category.URL, style="display: flex; text-decoration: none; width: 80%")
+        a.cardDetailLink(href=category.URL)
           if (category.imageURL)
             div.cardImageWrapper
               img.cardImage(src=category.imageURL)
