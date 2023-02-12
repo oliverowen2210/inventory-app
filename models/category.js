@@ -8,7 +8,7 @@ const CategorySchema = new Schema({
 });
 
 CategorySchema.virtual("URL").get(function () {
-  return `/inventory/category/${this._id}`;
+  return `/categories/${this._id}`;
 });
 
 CategorySchema.virtual("itemCount").get(function () {
