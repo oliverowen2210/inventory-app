@@ -5,7 +5,6 @@ const categoryController = require("../controllers/categoryController");
 const itemController = require("../controllers/itemController");
 
 const multer = require("multer");
-const path = require("path");
 
 const multerStorage = multer.memoryStorage();
 const multerUpload = multer({ storage: multerStorage });
