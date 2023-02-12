@@ -6,11 +6,11 @@ block header
       h2.contentHeaderText #{item.name}
       div(style="display: flex; justify-content: center")
          img(style="width: auto; height: auto; max-width:200px; max-height:200px;", src=item.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
-      p.contentDescription #{item.description}
-      h3.contentDescription $#{item.price} • #{item.count} available
-      div(style="display: flex; justify-content: space-evenly")
+      p.contentHeaderDescription #{item.description}
+      h3.contentHeaderDescription $#{item.price} • #{item.count} available
+      div.contentHeaderButtons
          a(style="text-decoration: none;", href=item.URL+"/update")
-            button.contentHeaderButton Update
+            button.cardButton  Update
          a(style="text-decoration: none;", href=item.URL + "/delete")
-            button.contentHeaderButton(style="background-color: red") Delete
+            button.cardButton(style="background-color: red") Delete
    div(style="flex: 1")

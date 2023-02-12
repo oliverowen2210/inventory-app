@@ -6,14 +6,14 @@ block header
       h2.contentHeaderText #{category.name}
       div(style="display: flex; justify-content: center")
          img(style="width: auto; height: auto; max-width:200px; max-height:200px;", src=category.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
-      p.contentDescription #{category.description}
+      p.contentHeaderDescription #{category.description}
       div
          h3(style="text-align: center") #{items.length} items in this category 
-      div(style="display: flex; justify-content: space-between")
+      div.contentHeaderButtons
          a(style="text-decoration: none;", href="/item/new")
-               button.contentHeaderButton Add new item
+               button.cardButton Add item
          a(style="text-decoration: none;", href=category.URL+"/update")
-               button.contentHeaderButton Update
+               button.cardButton Update
 
    div(style="flex: 1")
 
@@ -27,13 +27,15 @@ block grid
                div.cardImageWrapper
                   img.cardImage(src=item.imageURL)
             div.cardInfo
-               h3 #{item.name} • $#{item.price}
+               div(style="display: flex")
+                  h3.cardName #{item.name}
+                  h3.cardPrice $#{item.price}
                p(style="flex-grow: 1") #{item.description}
                h3 #{item.count} available
          div.cardButtons
             a(href=item.URL+"/update")
-               button(style="width: 120px") Update
+               button.cardButton Update
             a(href=item.URL+"/delete")
-               button(style="width: 120px; background-color: red") Delete
+               button.cardButton(style="background-color: red") Delete
    else 
       p(style="font-size: 18px; font-weight: bold; grid-column: 1 / 3") No items have been added to this category.

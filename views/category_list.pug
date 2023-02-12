@@ -6,7 +6,7 @@ block content
       div(style="width: 200px")
       h2.contentHeaderText(style="font-weight: 100") #[strong #{item_count}] items in #[strong #{category_count}] categories
       a(href="/categories/new")
-        button(style="width: 200px") + Add new category
+        button.newCategoryButton + Add new category
   div.cardGrid
     each category in categories 
       div.card
@@ -19,9 +19,9 @@ block content
             p #{category.description}
         div.cardButtons
           a(href=category.URL+'/update')
-            button(style="width: 120px") Update
+            button.cardButton Update
           a(href=category.URL+"/delete")
-            button(style="width: 120px; background-color: red") Delete
+            button.cardButton(style="background-color: red") Delete
     else 
       p No categories to display.
 
