@@ -5,7 +5,7 @@ block content
     div.contentHeader
       div(style="width: 200px")
       h2.contentHeaderText(style="font-weight: 100") #[strong #{item_count}] items in #[strong #{category_count}] categories
-      a(href="/inventory/category/create")
+      a(href="/categories/new")
         button(style="width: 200px") + Add new category
   div.cardGrid
     each category in categories 
