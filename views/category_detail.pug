@@ -1,19 +1,22 @@
-extends layout 
+extends layout_detail
 
-block content 
-   div.flexCenter
-      div.contentHeader(style="margin-bottom: 24px;")
-            div(style="width: 175px;")
-            div
-               h2.contentHeaderText(style="margin: 0; padding: 12px 24px; text-align: center") #{category.name}
-               div 
-                  img(style="max-width:200px; max-height:200px;", src=category.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
-               p(style="text-align: center") #{category.description}
-            a(href="/inventory/item/create")
-               button(style="width: 175px") + Add new item
-   div.cardGrid
-      each item in items 
-         div.card
+block header
+   div(style="flex: 1")
+   div
+      h2.contentHeaderText #{category.name}
+      div(style="display: flex; justify-content: center")
+         img(style="width: auto; height: auto; max-width:200px; max-height:200px;", src=category.imageURL, onerror="this.src = '/images/default.png'; this.onerror=''")
+      p.contentDescription #{category.description}
+   div(style="flex: 1; display: flex; height: 200px")
+      div(style="width:28px")
+      div(style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px")
+         a(style="text-decoration: none;", href="/item/new")
+            button.contentHeaderButton Add new item
+
+block grid
+   each item in items 
+      div.card
+         a.cardDetailLink(href=item.URL)
             if (item.imageURL)
                div.cardImageWrapper
                   img.cardImage(src=item.imageURL)
@@ -21,10 +24,10 @@ block content
                h3 #{item.name} • $#{item.price}
                p(style="flex-grow: 1") #{item.description}
                h3 #{item.count} available
-            div.cardButtons
-               a(href=item.URL+"/update")
-                  button(style="width: 120px") Update
-               a(href=item.URL+"/delete")
-                  button(style="width: 120px; background-color: red") Delete
-      else 
-         p(style="font-size: 18px; font-weight: bold; grid-column: 1 / 3") No items have been added to this category.
+         div.cardButtons
+            a(href=item.URL+"/update")
+               button(style="width: 120px") Update
+            a(href=item.URL+"/delete")
+               button(style="width: 120px; background-color: red") Delete
+   else 
+      p(style="font-size: 18px; font-weight: bold; grid-column: 1 / 3") No items have been added to this category.
