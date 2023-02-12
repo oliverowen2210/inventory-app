@@ -165,7 +165,8 @@ button {
   body,
   .inputGroup label,
   .inputGroup input,
-  .inputGroup textarea {
+  .inputGroup textarea,
+  .inputGroup select {
     font-size: calc(1vw + 1.8vh);
     width: 75vw;
   }
