@@ -46,6 +46,33 @@ exports.categories = (req, res, next) => {
   );
 };
 
+exports.category_detail = (req, res, next) => {
+  async.parallel(
+    {
+      category(cb) {
+        Category.findById(req.params.id).exec(cb);
+      },
+      items(cb) {
+        Item.find({ category: req.params.id }).exec(cb);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.category === null) {
+        err = new Error("Category not found");
+        err.status = 404;
+        return next(err);
+      }
+
+      res.render("category_detail", {
+        title: "Category Detail",
+        category: results.category,
+        items: results.items,
+      });
+    }
+  );
+};
+
 exports.category_create_get = (req, res) => {
   res.render("category_form", { title: "New category" });
 };
@@ -100,33 +127,6 @@ exports.category_create_post = [
     }
   },
 ];
-
-exports.category_detail = (req, res, next) => {
-  async.parallel(
-    {
-      category(cb) {
-        Category.findById(req.params.id).exec(cb);
-      },
-      items(cb) {
-        Item.find({ category: req.params.id }).exec(cb);
-      },
-    },
-    function (err, results) {
-      if (err) return next(err);
-      if (results.category === null) {
-        err = new Error("Category not found");
-        err.status = 404;
-        return next(err);
-      }
-
-      res.render("category_detail", {
-        title: "Category Detail",
-        category: results.category,
-        items: results.items,
-      });
-    }
-  );
-};
 
 exports.category_delete_get = (req, res, next) => {
   async.parallel(
