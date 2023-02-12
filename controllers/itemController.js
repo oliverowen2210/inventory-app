@@ -16,6 +16,18 @@ const Item = require("../models/item");
 
 const makeID = require("../utils").makeID;
 
+exports.item_detail = async (req, res, next) => {
+  const item = await Item.findById(req.params.id);
+
+  if (!item) {
+    const err = new Error("No item with that ID was found.");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("item_detail", { title: "Item detail", item });
+};
+
 exports.item_create_get = (req, res, next) => {
   Category.find({}).exec((err, categories) => {
     if (err) return next(err);
