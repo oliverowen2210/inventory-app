@@ -6,7 +6,8 @@ var logger = require("morgan");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const inventoryRouter = require("./routes/inventory");
+const categoryRouter = require("./routes/category");
+const itemRouter = require("./routes/item");
 
 var app = express();
 
@@ -27,9 +28,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", inventoryRouter);
-app.get("/inventory", (req, res) => {
-  res.redirect("/");
+app.use("/categories", categoryRouter);
+app.use("/item", itemRouter);
+
+app.get("/", (req, res) => {
+  res.redirect("/categories/");
 });
 
 // catch 404 and forward to error handler
